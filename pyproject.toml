@@ -1,8 +1,27 @@
 [project]
 name = "project-chimera"
 version = "0.1.0"
-description = "Spec-driven autonomous influencer infrastructure"
+description = "Autonomous Influencer Network governed by MCP and Swarm Architecture"
+readme = "README.md"
 requires-python = ">=3.11"
+dependencies = [
+    "mcp>=0.1.0",           # Universal connectivity
+    "pydantic-ai>=0.0.1",   # Structured agent logic
+    "weaviate-client",      # Long-term semantic memory
+    "coinbase-agentkit",    # Agentic commerce (on-chain)
+    "redis",                # Task queuing and OCC versioning
+    "pydantic>=2.0.0",      # Data validation
+    "loguru",               # Traceable logging for MCP Sense
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio",
+    "black",
+    "ruff",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+asyncio_mode = "auto"
