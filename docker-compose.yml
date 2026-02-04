@@ -1,0 +1,7 @@
+services:
+  agent-chimera:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1

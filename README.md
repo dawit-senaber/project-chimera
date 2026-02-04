@@ -1,0 +1,46 @@
+# 🦁 Project Chimera
+**Autonomous Influencer Factory | Ethiopian Market Focus**
+
+---
+
+## 🎯 Overview
+Project Chimera is an advanced agentic ecosystem built on **Spec-Driven Development (SDD)**. It automates the lifecycle of a digital influencer—from trend discovery to on-chain settlement—using a strictly governed, containerized architecture.
+
+## 🏗️ Core Architecture
+| Component | Implementation |
+| :--- | :--- |
+| **Agent Pattern** | Sequential Chain (Discovery → Generation → Settlement) |
+| **Governance** | Automated AI Policy via `CodeRabbit` |
+| **Infrastructure** | Docker Compose + GitHub Actions (CI/CD) |
+| **Development** | Test-Driven Development (TDD) with `pytest` |
+
+---
+
+## 🚀 Technical Quick Start
+Ensure you have **Docker** and **uv** installed.
+
+```bash
+# Execute the full validation suite (Builds container & runs tests)
+docker compose up --build --exit-code-from agent-chimera
+
+
+📂 Repository Roadmap
+
+📜 specs/ - Technical contracts and JSON schemas (Source of Truth).
+
+⚡ skills/ - Modular agent capabilities (Trend Fetching, Media Gen, Payments).
+
+🧪 tests/ - Automated validation suite ensuring spec alignment.
+
+🤖 .cursor/rules/ - Agentic "Brain Rules" for IDE orchestration.
+
+🛡️ .coderabbit.yaml - Automated AI governance and security audit policy.
+
+⚖️ Governance & Safety Layer
+Human-in-the-Loop: A mandatory PENDING_REVIEW database state prevents unauthorized posts.
+
+Security Audits: Automated checks for unvalidated addresses and leaked credentials.
+
+Spec Fidelity: All logic is mapped directly to technical.md contracts.
+
+Created for the Chimera Orchestrator Mission - February 2026

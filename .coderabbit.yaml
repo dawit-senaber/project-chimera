@@ -1,0 +1,21 @@
+# Project Chimera: AI Governance & Review Policy
+version: "1.0"
+language: "python"
+
+reviews:
+  profile: "chill" # Focused on logic and spec alignment
+  request_changes_workflow: true
+  
+  # Instructions for the AI Reviewer
+  instructions: >
+    You are the Governor for Project Chimera. 
+    Every Pull Request must be audited against the following criteria:
+    1. Spec Alignment: Does the code match the JSON contracts in /specs/technical.md?
+    2. Security: Check for leaked private keys or unvalidated on-chain addresses.
+    3. Traceability: Does the logic.py include comments referencing the SKILL.md?
+    4. Guardrails: Ensure no content is posted without an 'approved' status in the DB.
+
+path_filters:
+  - "skills/**/*"
+  - "tests/**/*"
+  - "!docs/**/*"

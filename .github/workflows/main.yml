@@ -1,0 +1,38 @@
+name: Chimera CI/CD Governance
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Build & Audit Agent Infrastructure
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📂 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # This caches your Docker layers to make subsequent runs 2-3x faster
+      - name: ⚡ Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: 🧪 Run Automated Tests in Container
+        # Uses --exit-code-from to ensure failure propagation
+        # Uses --build to ensure we are testing the latest code
+        run: |
+          docker compose up --build --exit-code-from agent-chimera
+
+      - name: 🧹 Clean Up Environment
+        if: always()
+        run: docker compose down
