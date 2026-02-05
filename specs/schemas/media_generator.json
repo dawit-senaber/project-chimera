@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "MediaGenerator Input Schema",
+    "type": "object",
+    "properties": {
+        "trends": {
+            "type": "array"
+        },
+        "persona_ref": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "trends"
+    ]
+}

@@ -43,4 +43,15 @@ Security Audits: Automated checks for unvalidated addresses and leaked credentia
 
 Spec Fidelity: All logic is mapped directly to technical.md contracts.
 
+### Failing Tests & TDD Story
+
+We follow a TDD-first approach for key governance features. The repository
+intentionally includes a failing spec that protects the project's finances:
+
+- `tests/test_cfo_governance.py` — asserts that payments exceeding the
+	environment-configured `DAILY_SPEND_LIMIT_USDC` are blocked by a budget guard.
+
+This failing test defines an "empty slot" that demonstrates how agents must
+implement critical guardrails before code is accepted. See `tests/` for details.
+
 Created for the Chimera Orchestrator Mission - February 2026

@@ -5,17 +5,19 @@ description = "Autonomous Influencer Network governed by MCP and Swarm Architect
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "mcp>=0.1.0",           # Universal connectivity
-    "pydantic-ai>=0.0.1",   # Structured agent logic
-    "weaviate-client",      # Long-term semantic memory
-    "coinbase-agentkit",    # Agentic commerce (on-chain)
-    "redis",                # Task queuing and OCC versioning
-    "pydantic>=2.0.0",      # Data validation
-    "loguru",               # Traceable logging for MCP Sense
+    "mcp>=0.1.0",
+    "pydantic-ai>=0.0.1",
+    "weaviate-client",
+    "coinbase-agentkit",
+    "redis",
+    "pydantic>=2.0.0",
+    "loguru",
+    "jsonschema>=4.0.0",
 ]
 
-[tool.uv]
-dev-dependencies = [
+# This is the modern 'uv' way to handle dev dependencies
+[dependency-groups]
+dev = [
     "pytest>=8.0.0",
     "pytest-asyncio",
     "black",

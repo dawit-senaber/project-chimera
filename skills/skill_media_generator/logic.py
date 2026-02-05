@@ -36,6 +36,18 @@ class MediaGenerator:
             }
         }
 
+    def fetch_interface(self) -> dict:
+        """Return a simple input contract description for spec-checking."""
+        return {
+            "title": "MediaGenerator Input Contract",
+            "type": "object",
+            "properties": {
+                "trends": {"type": "array"},
+                "persona_ref": {"type": "string"}
+            },
+            "required": ["trends"]
+        }
+
 if __name__ == "__main__":
     # Quick local test
     gen = MediaGenerator()

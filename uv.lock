@@ -2921,6 +2921,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "coinbase-agentkit" },
+    { name = "jsonschema" },
     { name = "loguru" },
     { name = "mcp" },
     { name = "pydantic" },
@@ -2940,6 +2941,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "coinbase-agentkit" },
+    { name = "jsonschema", specifier = ">=4.0.0" },
     { name = "loguru" },
     { name = "mcp", specifier = ">=0.1.0" },
     { name = "pydantic", specifier = ">=2.0.0" },

@@ -15,3 +15,12 @@ def test_trend_fetcher_output_schema():
     assert "topic" in first_trend
     assert "score" in first_trend
     assert isinstance(first_trend["score"], int)
+
+
+@pytest.mark.asyncio
+async def test_fetch_trends_is_awaitable():
+    fetcher = TrendFetcher(niche="Ethiopian Fashion")
+    result = await fetcher.fetch_trends()
+    assert isinstance(result, list)
+    assert len(result) > 0
+    assert isinstance(result[0], str)
