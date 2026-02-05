@@ -1,0 +1,20 @@
+# Environments
+.venv/
+env/
+venv/
+.env
+
+# Python Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# VS Code specific
+.vscode/
+!.vscode/settings.json
+!.vscode/mcp.json
+
+# Docker & OS
+.DS_Store
+*.log
