@@ -15,6 +15,14 @@ dependencies = [
     "jsonschema>=4.0.0",
 ]
 
+[build-system]
+requires = ["setuptools>=61.0","wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["skills*"]
+
 # This is the modern 'uv' way to handle dev dependencies
 [dependency-groups]
 dev = [
@@ -22,6 +30,11 @@ dev = [
     "pytest-asyncio",
     "black",
     "ruff",
+]
+
+[project.optional-dependencies]
+dev = [
+    "psycopg2-binary>=2.0",
 ]
 
 [tool.pytest.ini_options]

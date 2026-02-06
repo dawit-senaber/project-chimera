@@ -18,6 +18,17 @@ jobs:
       - name: 🛠️ Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install pytest pytest-asyncio
+
       # This caches your Docker layers to make subsequent runs 2-3x faster
       - name: ⚡ Cache Docker layers
         uses: actions/cache@v3

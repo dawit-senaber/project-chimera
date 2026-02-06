@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Agent Task",
+    "type": "object",
+    "properties": {
+        "task_id": {
+            "type": "string",
+            "description": "uuid-v4 string"
+        },
+        "task_type": {
+            "type": "string",
+            "enum": [
+                "generate_content",
+                "reply_comment",
+                "execute_transaction"
+            ]
+        },
+        "priority": {
+            "type": "string",
+            "enum": [
+                "high",
+                "medium",
+                "low"
+            ],
+            "default": "medium"
+        },
+        "context": {
+            "type": "object",
+            "properties": {
+                "goal_description": {
+                    "type": "string"
+                },
+                "persona_constraints": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "required_resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "goal_description"
+            ]
+        },
+        "assigned_worker_id": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "in_progress",
+                "review",
+                "complete"
+            ],
+            "default": "pending"
+        }
+    },
+    "required": [
+        "task_id",
+        "task_type",
+        "context",
+        "created_at",
+        "status"
+    ],
+    "additionalProperties": false
+}

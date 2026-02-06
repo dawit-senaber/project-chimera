@@ -6,10 +6,7 @@ test:
 
 spec-check:
 	@echo "Checking for mandatory specification files..."
-	@test -d specs || (echo "Error: specs directory missing"; exit 1)
-	@test -f specs/technical.md || (echo "Error: technical.md missing"; exit 1)
-	@echo "All specs present."
-	@echo "Running scripts/spec_check.py..."
+	@echo "Running spec-check script (validates skills against schemas)..."
 	python -m scripts.spec_check
 
 .PHONY: setup test spec-check

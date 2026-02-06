@@ -1,0 +1,8 @@
+mcp>=0.1.0
+pydantic-ai>=0.0.1
+weaviate-client
+coinbase-agentkit
+redis
+pydantic>=2.0.0
+loguru
+jsonschema>=4.0.0

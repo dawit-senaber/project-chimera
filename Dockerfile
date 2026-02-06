@@ -13,5 +13,8 @@ COPY . .
 # Install dependencies using the lockfile
 RUN uv sync --frozen
 
+# Install lightweight dev/test DB driver so integration tests can run inside container
+RUN python -m pip install --upgrade pip && python -m pip install psycopg2-binary pytest
+
 # Command to run tests inside the container
 CMD ["uv", "run", "pytest"]

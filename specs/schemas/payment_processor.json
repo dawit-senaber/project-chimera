@@ -1,20 +1,60 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "PaymentProcessor Input Schema",
+    "description": "Inputs for the on-chain payment skill. Amounts are denominated in USDC and must be positive.",
     "type": "object",
+    "additionalProperties": false,
     "properties": {
         "recipient_address": {
-            "type": "string"
+            "type": "string",
+            "minLength": 10,
+            "description": "Blockchain payment address (format depends on chain)."
         },
         "amount_usdc": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Amount to transfer in USDC (float)."
+        },
+        "currency": {
+            "type": "string",
+            "enum": [
+                "USDC"
+            ],
+            "default": "USDC"
+        },
+        "chain": {
+            "type": "string",
+            "enum": [
+                "solana",
+                "ethereum",
+                "polygon",
+                "mock"
+            ],
+            "default": "mock"
         },
         "memo": {
             "type": "string"
+        },
+        "reference_id": {
+            "type": "string",
+            "description": "Optional client-side id used to correlate payment requests."
+        },
+        "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Free-form metadata attached to the payment request."
         }
     },
     "required": [
         "recipient_address",
         "amount_usdc"
+    ],
+    "examples": [
+        {
+            "recipient_address": "4Pf...xyz",
+            "amount_usdc": 25.0,
+            "chain": "mock",
+            "reference_id": "pay-2026-02-06-01"
+        }
     ]
 }
