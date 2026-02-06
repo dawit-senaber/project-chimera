@@ -1,6 +1,8 @@
 import importlib
+import pytest
 
 
+@pytest.mark.xfail(reason="TDD empty slot: implement fetch_trends() in skill_trend_fetcher", strict=False)
 def test_trend_fetcher_empty_slot():
     """Empty-slot TDD: implement `skills.skill_trend_fetcher.logic.fetch_trends()`.
 
@@ -9,10 +11,11 @@ def test_trend_fetcher_empty_slot():
     """
     mod = importlib.import_module("skills.skill_trend_fetcher.logic")
     assert hasattr(mod, "fetch_trends"), "implement fetch_trends() in skill_trend_fetcher/logic.py"
-    # Failing assertion as an intentional empty-slot for TDD
+    # Intentional empty-slot for TDD; marked xfail so CI shows intent but does not fail.
     assert False, "TDD: fill fetch_trends() to return list[dict] per spec"
 
 
+@pytest.mark.xfail(reason="TDD empty slot: implement generate_media() in skill_media_generator", strict=False)
 def test_media_generator_empty_slot():
     """Empty-slot TDD: implement `skills.skill_media_generator.logic.generate_media()`.
 
@@ -23,6 +26,7 @@ def test_media_generator_empty_slot():
     assert False, "TDD: implement generate_media() and validate outputs against media_generator schema"
 
 
+@pytest.mark.xfail(reason="TDD empty slot: implement create_payment() in skill_onchain_payment", strict=False)
 def test_onchain_payment_empty_slot():
     """Empty-slot TDD: implement `skills.skill_onchain_payment.logic.create_payment()`.
 
