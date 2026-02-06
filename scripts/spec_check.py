@@ -45,20 +45,40 @@ def verify_skill_against_schema(instance, schema_path: Path, name: str):
 
     # If jsonschema available, do a stronger check by validating a sample
     if jsonschema:
-        def type_sample(t):
-            return {
-                "string": "x",
-                "integer": 1,
-                "number": 1.0,
-                "array": [],
-                "object": {},
-                "boolean": True,
-            }.get(t, None)
+        def type_sample(prop_schema):
+            t = prop_schema.get("type")
+            if t == "string":
+                # honor enums when present
+                if "enum" in prop_schema:
+                    enum = prop_schema.get("enum")
+                    if isinstance(enum, list) and enum:
+                        return enum[0]
+                min_len = prop_schema.get("minLength", 1)
+                # create a simple string that satisfies minLength
+                return "x" * max(1, int(min_len))
+            if t == "integer":
+                return prop_schema.get("minimum", 1)
+            if t == "number":
+                return prop_schema.get("minimum", 1.0)
+            if t == "array":
+                # produce an example with a single default item if item type available
+                items = prop_schema.get("items", {})
+                item_sample = type_sample(items) if items else []
+                return [item_sample]
+            if t == "object":
+                obj = {}
+                for p, p_schema in prop_schema.get("properties", {}).items():
+                    val = type_sample(p_schema)
+                    if val is not None:
+                        obj[p] = val
+                return obj
+            if t == "boolean":
+                return True
+            return None
 
         sample = {}
         for prop, prop_schema in schema.get("properties", {}).items():
-            t = prop_schema.get("type")
-            v = type_sample(t)
+            v = type_sample(prop_schema)
             if v is not None:
                 sample[prop] = v
 
