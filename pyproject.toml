@@ -10,6 +10,7 @@ dependencies = [
     "weaviate-client",
     "coinbase-agentkit",
     "redis",
+    "psycopg2-binary",
     "pydantic>=2.0.0",
     "loguru",
     "jsonschema>=4.0.0",

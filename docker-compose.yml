@@ -9,13 +9,13 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DB_ADAPTER=postgres
-      - DATABASE_URL=dbname=chimera_test user=chimera password=chimera host=postgres
+      - DATABASE_URL=dbname=chimera user=chimera password=chimera host=postgres
   postgres:
     image: postgres:15-alpine
     environment:
       POSTGRES_USER: chimera
       POSTGRES_PASSWORD: chimera
-      POSTGRES_DB: chimera_test
+      POSTGRES_DB: chimera
     ports:
       - "5432:5432"
     healthcheck:
