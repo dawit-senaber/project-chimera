@@ -73,3 +73,35 @@ Upload the resulting `docs/Project_Chimera_SRS_Report.pdf` to Google Drive and s
 ---
 
 If you want, I can convert this Markdown to PDF inside the container and create `docs/Project_Chimera_SRS_Report.pdf` for you — shall I proceed to generate the PDF in-repo now? (This will run the `pandoc` or `weasyprint` command inside the repo container.)
+
+7. Privacy, Compliance & Ethics
+
+This project must meet contemporary legal and ethical requirements for AI systems and data processing. Below are the minimum requirements and recommended controls that the implementation and deployment teams must follow.
+
+- Regulatory Baseline: Ensure compliance with applicable laws (e.g., GDPR for EU data subjects, the EU AI Act for high-risk AI systems, and relevant US state laws). Contractually require downstream tenants to adhere to the same privacy standards.
+- Data Minimization: Only collect and persist the minimum personal data required to accomplish a task. Use ephemeral short-term caches (Redis) for session/episodic data and store long-term data in Weaviate only after explicit sanitization and consent checks.
+- PII Handling: Automatically detect and redact PII before forwarding to any external MCP Server or third-party tool. Implement an enforceable `redact_pii()` utility in the ingestion pipeline.
+- Consent & Disclosure: Maintain explicit consent records for data subjects where required. Agents must automatically disclose their AI nature on direct inquiry (Honesty Directive) and include provenance metadata on published content where platforms support it.
+- Secrets & Key Management: Use an enterprise secrets manager (AWS Secrets Manager, HashiCorp Vault) for all private keys and API credentials. Never store secrets in the codebase or log them. Inject secrets into agent runtimes at startup only.
+- Financial Compliance (Agentic Commerce): For on-chain or fiat transfers, implement KYC/AML controls in the CommerceManager flow where required by jurisdiction and by the exchange/AgentKit provider terms. Use test wallets in development and require human approval (CFO Judge) for high-value transactions.
+- Auditability & Traceability: Log all tool calls, prompts, and critical decision metadata to an append-only audit store. Record `who/what/when` for every external action so human reviewers and auditors can reconstruct agent decisions.
+- Risk-based HITL: Configure HITL thresholds and sensitive topic filters (politics, health, legal, finance) to require human approval regardless of auto-approval confidence thresholds.
+- Retention & Deletion: Define clear retention policies for short-term caches, semantic memory snapshots, and transactional logs. Provide a mechanism to remove a subject's data from long-term memory in accordance with legal deletion requests.
+
+Developer Checklist (minimum):
+
+- Embed `AGENTS.md` policies into CI checks to ensure new persona updates pass an automated policy scanner.
+- Add automated PII/redaction tests to `tests/` that fail if PII is accidentally persisted to long-term storage during CI runs.
+- Add unit tests for `CommerceManager` that mock AgentKit responses and verify budget checks and atomic Redis updates.
+
+References
+
+- EU General Data Protection Regulation (GDPR): https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- EU AI Act (proposal overview): https://commission.europa.eu/AI-act
+- Model Context Protocol: https://modelcontextprotocol.io/docs/learn/architecture
+- Weaviate Vector Database: https://weaviate.io/docs
+- Coinbase AgentKit (Agentic Commerce): https://github.com/coinbase/agentkit
+- OpenClaw (agent social protocols): https://openclaw.example.org (design doc placeholder)
+- Gemini 3 & Claude Opus (vendor docs): see vendor APIs for model selection
+
+---
