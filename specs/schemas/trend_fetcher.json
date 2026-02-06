@@ -1,19 +1,63 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "TrendFetcher Input Schema",
+    "description": "Inputs for the TrendFetcher skill: which niche to scan, time window, and filtering thresholds.",
     "type": "object",
+    "additionalProperties": false,
     "properties": {
         "niche": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2,
+            "description": "Topic or vertical to search (e.g. 'fitness', 'fintech')."
         },
         "lookback_hours": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 168,
+            "default": 24,
+            "description": "How many hours back to consider when scoring trends."
         },
         "min_relevance": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.2,
+            "description": "Normalized relevance threshold (0.0-1.0) for returned trends."
+        },
+        "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10,
+            "description": "Maximum number of trends to return."
+        },
+        "sources": {
+            "type": "array",
+            "description": "Optional preferred sources to include (e.g. ['twitter','youtube','reddit']).",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 0,
+            "uniqueItems": true
         }
     },
     "required": [
         "niche"
+    ],
+    "examples": [
+        {
+            "niche": "fitness",
+            "lookback_hours": 24,
+            "min_relevance": 0.25,
+            "limit": 8
+        },
+        {
+            "niche": "crypto",
+            "lookback_hours": 72,
+            "sources": [
+                "twitter",
+                "reddit"
+            ]
+        }
     ]
 }

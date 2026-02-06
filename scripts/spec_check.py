@@ -11,6 +11,11 @@ import sys
 import json
 from pathlib import Path
 
+# Ensure repository root is discoverable for local imports when running from scripts/
+repo_root = Path(__file__).resolve().parent.parent
+if str(repo_root) not in sys.path:
+    sys.path.insert(0, str(repo_root))
+
 from skills.skill_trend_fetcher.logic import TrendFetcher
 from skills.skill_media_generator.logic import MediaGenerator
 from skills.skill_onchain_payment.logic import PaymentProcessor

@@ -1,16 +1,91 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "MediaGenerator Input Schema",
+    "description": "Inputs for media generation: list of trend objects plus persona and target format constraints.",
     "type": "object",
+    "additionalProperties": false,
     "properties": {
         "trends": {
-            "type": "array"
+            "type": "array",
+            "description": "Array of trend records as returned by the TrendFetcher skill.",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "title",
+                    "score"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "score": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                    },
+                    "url": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "minItems": 1
         },
         "persona_ref": {
-            "type": "string"
+            "type": "string",
+            "description": "Pointer or key to a persona profile used when generating voice/tone."
+        },
+        "tone": {
+            "type": "string",
+            "description": "Preferred tone for generated content.",
+            "enum": [
+                "neutral",
+                "playful",
+                "professional",
+                "edgy"
+            ]
+        },
+        "output_formats": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "short_text",
+                    "long_text",
+                    "video_script",
+                    "image_caption"
+                ]
+            },
+            "default": [
+                "short_text"
+            ]
         }
     },
     "required": [
         "trends"
+    ],
+    "examples": [
+        {
+            "trends": [
+                {
+                    "id": "t1",
+                    "title": "Kettlebell routines",
+                    "score": 0.78
+                }
+            ],
+            "persona_ref": "persona/fitness_pro",
+            "tone": "playful"
+        }
     ]
 }
